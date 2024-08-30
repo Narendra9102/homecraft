@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - HomeCraft</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="container">
+            <h1 class="headername">HomeCraft - Register</h1>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'register' %}" class="active">Register</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="register-form">
+            <div class="container">
+                <h2>Create an Account</h2>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                <form method="post" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    <input type="text" name="u_name" placeholder="Username" required>
+                    <input type="email" name="emailid" placeholder="Email" required>
+                    <input type="number" name="p_number" placeholder="Mobile Number" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: white;">&copy; 2024 HomeCraft. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.from('#header', { duration: 1, y: '-100%', ease: 'bounce' });
+            gsap.from('#register-form', { duration: 1.5, opacity: 0, y: 50, delay: 0.5 });
+            gsap.from('footer', { duration: 1, opacity: 0, y: 50, ease: 'power2.out', delay: 1.5 });
+        });
+    </script>
+</body>
+
+</html>
