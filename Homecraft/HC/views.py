@@ -34,7 +34,7 @@ def register(request):
             messages.error(request, 'Email already in use.')
             return render(request, 'register.html')
 
-        user = User.objects.create_user(username=u_name, email=emailid, password=make_password(password))
+        user = User.objects.create_user(username=u_name, email=emailid, password=password)
 
         Customer.objects.create(user=user, u_name=u_name, p_number=p_number, emailid=emailid, password=make_password(password))
 
