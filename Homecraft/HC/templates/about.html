@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - HomeCraft</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+</head>
+
+<body>
+    <header id="header">
+        <div class="container">
+            <h1 class="headername">About HomeCraft</h1>
+            <nav>
+                <ul class="navbar">
+                    <li class="nav"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="nav"><a href="{% url 'about' %}" class="active">About</a></li>
+                    <li class="nav"><a href="{% url 'register' %}">Register</a></li>
+                    <li class="nav"><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="about-intro">
+            <div class="container">
+                <h2>Our Mission</h2>
+                <p class="intro-p">At HomeCraft, we are committed to making homebuilding accessible to everyone. Our goal is to provide innovative, budget-friendly home design solutions that help you build your dream home with ease.</p>
+                <a href="#team" class="cta-button">Meet the Team</a>
+            </div>
+        </section>
+
+        <section id="team">
+            <div class="container">
+                <h2>Meet Our Team</h2>
+                <div class="team-member">
+                    <p class="intro-p">Lead Designer</p>
+                    <img src="{% static 'images/img-1.jpg' %}" alt="Team Member 1">
+                    <h3>Jane Doe</h3>
+
+                </div>
+                <div class="team-member">
+                    <p class="intro-p">Project Manager</p>
+                    <img src="{% static 'images/img-2.jpg' %}" alt="Team Member 2">
+                    <h3>John Smith</h3>
+
+                </div>
+                <div class="team-member">
+                    <p class="intro-p">Construction Expert</p>
+                    <img src="{% static 'images/img-3.jpg' %}" alt="Team Member 3">
+                    <h3>Emily Davis</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <p class="intro-p">Have questions or want to get in touch? Feel free to contact us through the form below, and we'll get back to you as soon as possible.</p>
+                <form>
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit" class="cta-button">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 HomeCraft. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.from('#header', { duration: 1, y: '-100%', ease: 'bounce' });
+            gsap.from('#about-intro', { duration: 1.5, opacity: 0, y: 50, delay: 0.5 });
+            gsap.from('.team-member', { duration: 1, opacity: 0, y: 50, stagger: 0.3, delay: 1 });
+            gsap.from('#contact', { duration: 1.5, opacity: 0, y: 50, delay: 1.5 });
+            gsap.from('footer', { duration: 1, opacity: 0, y: 50, delay: 2 });
+        });
+    </script>
+</body>
+
+</html>

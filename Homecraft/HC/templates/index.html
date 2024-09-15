@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeCraft</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+</head>
+
+<body>
+    <header id="header">
+        <div class="container">
+            <h1 class="headername">Welcome to HomeCraft</h1>
+            <nav>
+                <ul class="navbar">
+                    <li class="nav"><a href="{% url 'index' %}" class="active">Home</a></li>
+                    <li class="nav"><a href="{% url 'about' %}">About</a></li>
+                    <li class="nav"><a href="{% url 'register' %}">Register</a></li>
+                    <li class="nav"><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="intro">
+            <div class="container1">
+                <h2>Build Your Dream Home on a Budget</h2>
+                <p class="intro-p">Access curated house design templates and detailed construction plans tailored to your preferences. <br> We help you create beautiful homes with innovative ideas and structured plans, perfect for any budget.</p>
+                <a href="" class="cta-button">Get Started</a>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2>Our Key Features</h2>
+            <div class="container2">
+                <div class="feature">
+                    <h3>Personalized House Design Templates</h3>
+                    <p>Browse through a variety of house designs based on your preferences and requirements.</p>
+                </div>
+                <div class="feature">
+                    <h3>Project Planning and Scheduling</h3>
+                    <p>Offers structured plans for building projects with options for 3-month and 6-month timelines.</p>
+                </div>
+                <div class="feature">
+                    <h3>Comprehensive Work Breakdown</h3>
+                    <p>Detailed lists of required tasks and works for each phase of construction, including basement plans, electrician plans, and worker schedules.</p>
+                </div>
+                <div class="feature">
+                    <h3>Budget-Friendly Solutions</h3>
+                    <p>Innovative ideas and cost-effective plans to help you build beautiful homes without breaking the bank.</p>
+                </div>
+                <div class="feature">
+                    <h3>Find Rental Rooms</h3>
+                    <p>Search for available rental rooms, filter by location, price, and amenities to find the perfect match.</p>
+                </div>
+                <div class="feature">
+                    <h3>Purchase Flats</h3>
+                    <p>Explore a variety of flats available for purchase, complete with virtual tours and financial guidance.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="plans">
+            <h2 style="margin-top: 40px">Our Plans and Pricing</h2>
+            <div class="container3">
+                <a href="" class="plan">
+                    <h3>Basic Plan</h3>
+                    <p>Includes foundational designs and basic construction schedules.</p>
+                    <p>Price: $500</p>
+                </a>
+                <a href="" class="plan">
+                    <h3>Standard Plan</h3>
+                    <p>Includes detailed designs, electrical plans, and 3-month construction timeline.</p>
+                    <p>Price: $1500</p>
+                </a>
+                <a href="" class="plan">
+                    <h3>Premium Plan</h3>
+                    <p>Includes all design templates, comprehensive work breakdown, <br> and 6-month construction timeline.</p>
+                    <p>Price: $2500</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 HomeCraft. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.from('#header', { duration: 1, y: '-100%', ease: 'bounce' });
+            gsap.from('#intro', { duration: 1.5, opacity: 0, y: 50, delay: 0.5 });
+            gsap.from('.feature', { duration: 1, opacity: 0, y: 50, stagger: 0.3, delay: 1 });
+            gsap.from('.plan', { duration: 1, opacity: 0, y: 50, stagger: 0.3, delay: 1.5 });
+            gsap.from('footer', { duration: 1, opacity: 0, y: 50, delay: 2 });
+        });
+    </script>
+</body>
+
+</html>
