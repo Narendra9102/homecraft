@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib.auth.decorators import login_required
 from .models import Customer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.contrib.auth import authenticate
+from rest_framework import status
 
 # Create your views here.
 def index(request):
@@ -12,7 +14,6 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html')
-
 
 def register(request):
     if request.method == 'POST':
@@ -35,27 +36,24 @@ def register(request):
             return render(request, 'register.html')
 
         user = User.objects.create_user(username=u_name, email=emailid, password=password)
-
-        Customer.objects.create(user=user, u_name=u_name, p_number=p_number, emailid=emailid, password=make_password(password))
+        Customer.objects.create(user=user, u_name=u_name, p_number=p_number, emailid=emailid)
 
         messages.success(request, 'Account created successfully.')
-        return redirect('login')
+        return redirect('http://localhost:3000/login')
 
     return render(request, 'register.html')
 
+@api_view(['POST'])
+def login_view(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
 
-def login(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
 
-        user = authenticate(request, username=email, password=password)
-
-        if user is not None:
-            auth_login(request, user)
-            messages.success(request, 'Logged in successfully.')
-            return redirect('index')
-        else:
-            messages.error(request, 'Invalid email or password.')
-
-    return render(request, 'login.html')
+    if user is not None:
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        })
+    return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
