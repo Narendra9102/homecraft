@@ -8,7 +8,9 @@ const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    console.log("Login button clicked");
     if (!username || !password) {
       setError('Username and password are required');
       return;
@@ -34,7 +36,10 @@ const Login = () => {
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
 
+      console.log('Navigating to /home...');
       navigate('/home');
+      console.log('Navigation attempted to /home');
+
       
     } catch (error) {
       console.error('Error during login:', error);
@@ -44,6 +49,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <form onSubmit={handleLogin}>
       <div className="login-box">
         <h2>Login</h2>
         <input
@@ -58,9 +64,10 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button type='submit'>Login</button>
         {error && <p className="error-message">{error}</p>}
       </div>
+      </form>
     </div>
   );
 };
