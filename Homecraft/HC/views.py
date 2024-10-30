@@ -43,17 +43,25 @@ def register(request):
 
     return render(request, 'register.html')
 
+
 @api_view(['POST'])
 def login_view(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
 
-    user = authenticate(username=username, password=password)
+    if request.method == 'POST':
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-    if user is not None:
-        refresh = RefreshToken.for_user(user)
-        return Response({
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        })
-    return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'user': {
+                    'uname': user.username,
+                    'email': user.email,
+                    'phone_no': user.customer.p_number,
+                }
+            })
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
